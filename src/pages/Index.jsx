@@ -1,7 +1,9 @@
 import { Container, Text, VStack, Heading, Box, Image, SimpleGrid, GridItem, Link } from "@chakra-ui/react";
+import { useState } from "react";
+import RecipeSubmissionForm from "../components/RecipeSubmissionForm";
 import { FaExternalLinkAlt } from "react-icons/fa";
 
-const recipes = [
+const [recipes, setRecipes] = useState([
   {
     title: "Spaghetti Carbonara",
     image: "/images/spaghetti-carbonara.jpg",
@@ -22,7 +24,11 @@ const recipes = [
     image: "/images/vegetable-stir-fry.jpg",
     link: "#"
   }
-];
+]);
+
+const handleNewRecipe = (newRecipe) => {
+  setRecipes([...recipes, newRecipe]);
+};
 
 const Index = () => {
   return (
@@ -30,6 +36,8 @@ const Index = () => {
       <VStack spacing={8}>
         <Heading as="h1" size="2xl">Recipe Sharing Website</Heading>
         <Text fontSize="xl">Discover and share your favorite recipes!</Text>
+        <RecipeSubmissionForm onSubmit={handleNewRecipe} />
+        <Box height="50px" />
         <SimpleGrid columns={{ base: 1, md: 2, lg: 4 }} spacing={10}>
           {recipes.map((recipe, index) => (
             <GridItem key={index} w="100%">
